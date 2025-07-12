@@ -1,65 +1,111 @@
-import { useForm } from "react-hook-form";
-import { z } from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
+import { useState } from "react";
 
-// Zod schema for validation
-const emailSchema = z.object({
-  email: z.string().email({ message: "Invalid email address" }),
-});
+export default function ContactForm() {
+  const [email, setEmail] = useState("");
+  const [emailError, setEmailError] = useState("");
+  const [checked, setChecked] = useState(true);
 
-type EmailFormData = z.infer<typeof emailSchema>;
-
-export default function EmailForm() {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors, isSubmitSuccessful },
-    reset,
-  } = useForm<EmailFormData>({
-    resolver: zodResolver(emailSchema),
-  });
-
-  const onSubmit = (data: EmailFormData) => {
-    console.log("Submitted:", data);
-    reset(); // Clear form after submit
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!email.trim()) {
+      setEmailError("This field can’t be empty");
+    } else {
+      setEmailError("");
+      alert("Form submitted!");
+    }
   };
 
   return (
     <form
-      onSubmit={handleSubmit(onSubmit)}
-      className="max-w-sm mx-auto mt-10 p-4 bg-white shadow rounded-xl space-y-4"
+      onSubmit={handleSubmit}
+      className="bg-slate-100 p-6 max-w-md mx-auto space-y-6"
     >
-      <label
-        htmlFor="email"
-        className="block text-sm font-medium text-gray-700"
-      >
-        Email address
-      </label>
-      <input
-        id="email"
-        type="email"
-        {...register("email")}
-        placeholder="you@example.com"
-        className={`w-full px-4 py-2 border ${
-          errors.email ? "border-red-500" : "border-gray-300"
-        } rounded-lg shadow-sm focus:outline-none focus:ring-2 ${
-          errors.email ? "focus:ring-red-400" : "focus:ring-orange-400"
-        }`}
+      <InputField label="Name" defaultValue="John Appleseed" />
+      <InputField
+        label="Email Address"
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
+        error={emailError}
+        isError={!!emailError}
       />
-      {errors.email && (
-        <p className="text-red-500 text-sm">{errors.email.message}</p>
-      )}
+      <InputField label="Company Name" />
+      <InputField label="Title" />
+      <TextAreaField label="Message" />
+
+      <div className="flex items-start gap-3">
+        <input
+          type="checkbox"
+          className="accent-rose-600 w-5 h-5 rounded-md"
+          checked={checked}
+          onChange={(e) => setChecked(e.target.checked)}
+        />
+        <p className="text-sm text-gray-700">
+          Stay up-to-date with company announcements and updates to our API
+        </p>
+      </div>
 
       <button
         type="submit"
-        className="w-full py-2 px-4 bg-orange-500 hover:bg-orange-600 text-white rounded-lg shadow transition"
+        className="bg-slate-700 text-white font-semibold px-8 py-3 rounded-full hover:bg-slate-800 transition"
       >
-        Subscribe
+        Submit
       </button>
-
-      {isSubmitSuccessful && !errors.email && (
-        <p className="text-green-600 text-sm mt-2">Thanks for subscribing!</p>
-      )}
     </form>
+  );
+}
+
+function InputField({
+  label,
+  value,
+  onChange,
+  defaultValue,
+  error,
+  isError,
+}: {
+  label: string;
+  value?: string;
+  onChange?: React.ChangeEventHandler<HTMLInputElement>;
+  defaultValue?: string;
+  error?: string;
+  isError?: boolean;
+}) {
+  return (
+    <div className="flex flex-col">
+      <label
+        className={`text-sm font-medium ${
+          isError ? "text-rose-600" : "text-gray-800"
+        }`}
+      >
+        {label}
+      </label>
+      <input
+        type="text"
+        value={value}
+        onChange={onChange}
+        defaultValue={defaultValue}
+        className={`border-b-2 outline-none py-2 placeholder-gray-400 text-gray-800 bg-transparent
+          ${
+            isError
+              ? "border-rose-600"
+              : "border-gray-400 focus:border-gray-800"
+          }
+        `}
+        placeholder={label}
+      />
+      {isError && <p className="text-sm text-rose-600 mt-1">{error}</p>}
+    </div>
+  );
+}
+
+function TextAreaField({ label }: { label: string }) {
+  return (
+    <div className="flex flex-col">
+      <label className="text-sm font-medium text-gray-800">{label}</label>
+      <textarea
+        rows={3}
+        placeholder={label}
+        className="border-b-2 border-gray-400 focus:border-gray-800 outline-none py-2 bg-transparent text-gray-800 placeholder-gray-400"
+      />
+    </div>
   );
 }

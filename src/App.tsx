@@ -1,13 +1,16 @@
-import { RouterProvider } from "react-router";
-import { router } from "./router/router";
+// Layout.
+import Header from "./components/Header";
+import Footer from "./components/Footer";
+import { Outlet } from "react-router";
 
-function App() {
+export default function App() {
   return (
     <>
-      <h1>Monkey</h1>
-      <RouterProvider router={router} />
+      <Header />
+      <main className="min-h-screen">
+        <Outlet />
+      </main>
+      <Footer />
     </>
   );
 }
-
-export default App;
