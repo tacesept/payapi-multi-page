@@ -5,7 +5,7 @@ export default function NavBar({ children }: { children: React.ReactNode }) {
   return ( 
       <nav className="flex items-center gap-16">
         <Link to="/">{children}</Link>
-        <ul className="flex items-center gap-10">
+        <ul className="hidden md:flex items-center gap-10">
           <li>
             <Link to="/pricing">Pricing</Link>
           </li>

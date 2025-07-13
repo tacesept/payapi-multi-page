@@ -1,15 +1,24 @@
 import NavBar from "./NavBar";
 import LogoDark from "../assets/dark-logo.svg?react";
+import MenuIcon from "../assets/menu-icon.svg?react";
+import { Button } from "@/components/ui/button";
 
 export default function Header() {
   return (
-    <header>
-      <div className="flex justify-between items-center">
+    <header className="px-4 md:px-8">
+      <div className="flex justify-between items-center mt-10 max-w-[1110px] mx-auto ">
         <NavBar>
           <LogoDark />
         </NavBar>
-        <button className="whitespace-nowrap">Schedule a Demo</button>
+        <div className="hidden md:block">
+          <Button variant="pill" size="custom">
+            Schedule a Demo
+          </Button>
+        </div>
+        <button className="md:hidden">
+          <MenuIcon />
+        </button>
       </div>
     </header>
   );
-} 
+}

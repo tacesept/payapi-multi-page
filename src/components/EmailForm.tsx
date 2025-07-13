@@ -1,111 +1,48 @@
-import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { z } from "zod/v4";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Button } from "@/components/ui/button";
 
-export default function ContactForm() {
-  const [email, setEmail] = useState("");
-  const [emailError, setEmailError] = useState("");
-  const [checked, setChecked] = useState(true);
+const schema = z.object({
+  email: z.string().email("Invalid email address"),
+});
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!email.trim()) {
-      setEmailError("This field can’t be empty");
-    } else {
-      setEmailError("");
-      alert("Form submitted!");
-    }
+type FormData = z.infer<typeof schema>;
+
+export default function EmailForm() {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+    reset,
+  } = useForm<FormData>({ resolver: zodResolver(schema) });
+
+  const onSubmit = async (data: FormData) => {
+    console.log("Submitted", data);
+
+    await new Promise((r) => setTimeout(r, 1000));
+    reset();
   };
-
   return (
-    <form
-      onSubmit={handleSubmit}
-      className="bg-slate-100 p-6 max-w-md mx-auto space-y-6"
-    >
-      <InputField label="Name" defaultValue="John Appleseed" />
-      <InputField
-        label="Email Address"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-        error={emailError}
-        isError={!!emailError}
-      />
-      <InputField label="Company Name" />
-      <InputField label="Title" />
-      <TextAreaField label="Message" />
-
-      <div className="flex items-start gap-3">
+    <>
+      {errors.email && (
+        <p className="text-red-500 text-sm mt-1">{errors.email.message}</p>
+      )}
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        className="flex items-center bg-white rounded-full shadow-md overflow-hidden w-full sm:max-w-md"
+      >
         <input
-          type="checkbox"
-          className="accent-rose-600 w-5 h-5 rounded-md"
-          checked={checked}
-          onChange={(e) => setChecked(e.target.checked)}
+          type="email"
+          placeholder="Enter email address"
+          className="flex-1 px-4 py-3 text-sm text-gray-700 placeholder-gray-400 focus:outline-none"
+          {...register("email")}
         />
-        <p className="text-sm text-gray-700">
-          Stay up-to-date with company announcements and updates to our API
-        </p>
-      </div>
 
-      <button
-        type="submit"
-        className="bg-slate-700 text-white font-semibold px-8 py-3 rounded-full hover:bg-slate-800 transition"
-      >
-        Submit
-      </button>
-    </form>
-  );
-}
-
-function InputField({
-  label,
-  value,
-  onChange,
-  defaultValue,
-  error,
-  isError,
-}: {
-  label: string;
-  value?: string;
-  onChange?: React.ChangeEventHandler<HTMLInputElement>;
-  defaultValue?: string;
-  error?: string;
-  isError?: boolean;
-}) {
-  return (
-    <div className="flex flex-col">
-      <label
-        className={`text-sm font-medium ${
-          isError ? "text-rose-600" : "text-gray-800"
-        }`}
-      >
-        {label}
-      </label>
-      <input
-        type="text"
-        value={value}
-        onChange={onChange}
-        defaultValue={defaultValue}
-        className={`border-b-2 outline-none py-2 placeholder-gray-400 text-gray-800 bg-transparent
-          ${
-            isError
-              ? "border-rose-600"
-              : "border-gray-400 focus:border-gray-800"
-          }
-        `}
-        placeholder={label}
-      />
-      {isError && <p className="text-sm text-rose-600 mt-1">{error}</p>}
-    </div>
-  );
-}
-
-function TextAreaField({ label }: { label: string }) {
-  return (
-    <div className="flex flex-col">
-      <label className="text-sm font-medium text-gray-800">{label}</label>
-      <textarea
-        rows={3}
-        placeholder={label}
-        className="border-b-2 border-gray-400 focus:border-gray-800 outline-none py-2 bg-transparent text-gray-800 placeholder-gray-400"
-      />
-    </div>
+        <Button variant="pill" size="custom" disabled={isSubmitting}>
+          Schedule a Demo
+        </Button>
+      </form>
+    </>
   );
 }
