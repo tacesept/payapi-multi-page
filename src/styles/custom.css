@@ -1,0 +1,29 @@
+@import "tailwindcss";
+
+@font-face {
+  font-family: "DMSerifDisplay-Regular";
+  src: url("@/assets/fonts/DM_Serif_Display/DMSerifDisplay-Regular.ttf")
+    format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@theme {
+  --color-ice-blue: #edf3f8;
+  --color-raspberry-rose: #ba4270;
+  --color-rose-pink: #da6d97;
+  --color-steel-blue: #36536b;
+
+  --font-dms: DMSerifDisplay-Regular, Georgia, serif;
+}
+
+@layer base {
+  body {
+    @apply bg-ice-blue;
+  }
+
+  button {
+    @apply cursor-pointer;
+  }
+}

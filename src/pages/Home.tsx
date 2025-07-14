@@ -6,7 +6,7 @@ export default function Home() {
     <main className="px-4 sm:px-8">
       <section className="max-w-[1110px] mx-auto flex max-lg:flex-col-reverse justify-between items-center mt-8 sm:mt-12 lg:mt-18">
         <div className="lg:w-1/2 flex flex-col gap-4 max-lg:items-center">
-          <h1 className="text-3xl sm:text-5xl lg:text-7xl max-lg:max-w-lg max-lg:text-center">
+          <h1 className="text-3xl md:text-5xl lg:text-7xl max-lg:max-w-lg max-lg:text-center font-dms text-steel-blue">
             Start building with our APIs for absolutely free.
           </h1>
           <EmailForm />

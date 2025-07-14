@@ -30,12 +30,13 @@ export default function EmailForm() {
       )}
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="flex items-center bg-white rounded-full shadow-md overflow-hidden w-full sm:max-w-md"
+        className="flex max-md:flex-col max-md:gap-4 items-center bg-transparent md:bg-white md:rounded-full md:shadow-md overflow-hidden w-full sm:max-w-md"
       >
         <input
           type="email"
           placeholder="Enter email address"
-          className="flex-1 px-4 py-3 text-sm text-gray-700 placeholder-gray-400 focus:outline-none"
+          className="md:flex-1 px-4 py-3 text-sm text-steel-blue placeholder-gray-400 focus:outline-none 
+          max-md:w-full max-md:rounded-full max-md:shadow-md max-md:bg-white"
           {...register("email")}
         />
 

@@ -1,6 +1,6 @@
 import NavBar from "./NavBar";
-import LogoDark from "../assets/dark-logo.svg?react";
-import MenuIcon from "../assets/menu-icon.svg?react";
+import LogoDark from "@/assets/images/dark-logo.svg?react";
+import MenuIcon from "@/assets/images/menu-icon.svg?react";
 import { Button } from "@/components/ui/button";
 
 export default function Header() {
