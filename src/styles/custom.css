@@ -20,10 +20,69 @@
 
 @layer base {
   body {
-    @apply bg-ice-blue;
+    @apply max-w-[1440px] mx-auto bg-ice-blue;
   }
 
   button {
     @apply cursor-pointer;
+  }
+}
+
+@layer components {
+  .wrapper {
+    @apply bg-[url(/bg-pattern-circle.svg)]
+     bg-position-[center_-40rem] lg:bg-position-[calc(50%+30rem)_-16rem]
+     bg-size-[50rem] md:bg-size-[60rem] lg:bg-size-[50rem] 
+     bg-no-repeat;
+  }
+
+  .wrapper-uiux {
+    @apply lg:bg-[url(/bg-pattern-circle.svg)]
+     bg-position-[calc(50%+42rem)]
+     bg-size-[50rem]
+     bg-no-repeat;
+  }
+
+  .wrapper-parnters {
+    @apply lg:bg-[url(/bg-pattern-circle2.svg)]
+     bg-position-[calc(50%-33rem)_-20rem]
+     bg-size-[50rem]
+     bg-no-repeat;
+  }
+
+  .autoShow {
+    animation: text-appear both;
+    animation-timeline: view(10% 5%);
+    animation-range: entry 20% cover 100vh;
+  }
+
+  .imageReveal {
+    animation: imageReveal both;
+    animation-timeline: view(10% 5%);
+    animation-range: entry 20% cover 40%;
+  }
+
+  @keyframes text-appear {
+    from {
+      opacity: 0;
+      transform: translateY(100px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes imageReveal {
+    from {
+      opacity: 0;
+      scale: 0.95;
+      translate: 0 3rem;
+    }
+    to {
+      opacity: 1;
+      scale: 1;
+      translate: 0 0;
+    }
   }
 }

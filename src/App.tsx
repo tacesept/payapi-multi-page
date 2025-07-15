@@ -6,13 +6,15 @@ import ReadyToStart from "./components/ReadyToStart";
 
 export default function App() {
   return (
-    <>
+    <div
+      className="wrapper"
+    >
       <Header />
       <main className="min-h-screen">
         <Outlet />
         <ReadyToStart />
       </main>
       <Footer />
-    </>
+    </div>
   );
 }

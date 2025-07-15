@@ -1,14 +1,14 @@
 import NavBar from "./NavBar";
-import LogoDark from "@/assets/images/dark-logo.svg?react";
-import MenuIcon from "@/assets/images/menu-icon.svg?react";
+import Logo from "@/assets/images/shared/desktop/logo.svg?react";
+import MenuIcon from "@/assets/images/shared/mobile/menu.svg?react";
 import { Button } from "@/components/ui/button";
 
 export default function Header() {
   return (
     <header className="px-4 md:px-8">
-      <div className="flex justify-between items-center mt-10 max-w-[1110px] mx-auto ">
+      <div className="flex justify-between items-center max-w-[1110px] mx-auto bg-[url(/bg-3-mobile.png)] bg-no-repeat bg-top">
         <NavBar>
-          <LogoDark />
+          <Logo />
         </NavBar>
         <div className="hidden md:block">
           <Button variant="pill" size="custom">

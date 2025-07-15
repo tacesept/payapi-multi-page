@@ -1,4 +1,4 @@
-import LogoLight from "@/assets/images/light-logo.svg?react";
+import Logo from "@/assets/images/shared/desktop/logo2.svg?react";
 import { Link } from "react-router";
 import NavBar from "./NavBar";
 import { FaFacebookSquare } from "react-icons/fa";
@@ -10,7 +10,7 @@ export default function Footer() {
     <footer className="px-4 md:px-8 bg-[#1B262F] text-white">
       <div className="max-w-[1110px] mx-auto flex max-md:flex-col gap-10 justify-between items-center py-8 md:py-10 ">
         <NavBar textClass="text-[#FBFCFE]">
-          <LogoLight />
+          <Logo className="text-red" />
         </NavBar>
         <ul className="flex md:hidden flex-col items-center gap-10">
           {["Pricing", "About", "Contact"].map((item) => (
